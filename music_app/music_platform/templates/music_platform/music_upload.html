@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+{% load widget_tweaks %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Music</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'music_platform/bootstrap.min.css' %}">
+  </head>
+<style>
+body {
+    background-color: #212529;
+}
+ .vertical-center {
+    margin:0 auto;
+    width:300px;
+    transform: translateY(30%);
+}
+  </style>
+<body>
+  {% for messg in messages %}
+  {% if "success" in messg.tags %}
+    <p style="color:lightgreen;">{{messg}}</p>
+  {% else %}
+    <p style="color:red;">{{messg}}</p>
+  {% endif %}
+  {% endfor %}
+    <div class="h-100 d-flex align-items-center justify-content-center">
+    <form action="", method="POST" class="form-group vertical-center" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-2">
+        <label for="Music Name" style="color: white;"><b>Music Name</b></label>
+        {% render_field form.music_name placeholder="Poker Face" class="form-control" style="width:300px;" %}
+        </div>
+        <div class="mb-2">
+        <label for="music_file" style="color: white;"><b>Music File</b></label>
+        {% render_field form.music_file class="form-control" style="width:300px;" %}
+        </div>
+        <div class="mb-2">
+        <label for="music_type" style="color: white;"><b>Music Type</b></label>
+        {% render_field form.music_type id="types" class="form-control" style="width:300px;" %}
+        <div class="mb-2">
+        <label for="music_genre" style="color: white;"><b>Music Type</b></label>
+        {% render_field form.music_genre id="types" class="form-control" style="width:300px;" %}
+  
+      </div>
+
+        <div class="mb-2">
+        <p style="color:rgb(190, 249, 71);">Note: Only audio files are permitted to be uploaded.</p>
+        </div>
+        <div class="vertical-center"> 
+        <input type="submit" class="btn btn-primary" style="width:300px" value="Submit">
+        </div>
+      </form>
+    </div>
+     
+</body>
+</html>

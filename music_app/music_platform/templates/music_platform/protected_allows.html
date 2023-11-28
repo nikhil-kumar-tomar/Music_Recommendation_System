@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+{% load widget_tweaks %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Emails for Protected class</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'music_platform/bootstrap.min.css' %}">
+  </head>
+<style>
+body {
+    background-color: #212529;
+}
+ .vertical-center {
+    margin:0 auto;
+    width:400px;
+    transform: translateY(30%);
+}
+  </style>
+<body>
+  {% for messg in messages %}
+  {% if "success" in messg.tags %}
+    <p style="color:lightgreen;">{{messg}}</p>
+  {% else %}
+    <p style="color:red;">{{messg}}</p>
+  {% endif %}
+  {% endfor %}
+    
+    <form action="", method="POST" class="form-group vertical-center">
+        {% csrf_token %}
+        <div class="mb-2">
+        <label style="color: white;"><b>Emails for access to your protected music</b></label> <br>
+        <br>
+        <textarea type="text" name="protect_emails" class="form-control" placeholder="Seperated by comma(,)" style="width:400px; height:300px;"></textarea>
+        </div>
+        <div class="vertical-center"> 
+        <p style="color:rgb(190, 249, 71);">Note: Email Addresses not registered with our portal will be ignored.</p>
+        </div>
+        <div class="vertical-center"> 
+        <button type="submit" class="btn btn-primary form-control">Submit</button>
+        </div>
+      </form>
+    </div>
+     
+</body>
+</html>

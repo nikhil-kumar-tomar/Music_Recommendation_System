@@ -1,0 +1,4 @@
+music_app/.env
+music_recommender_api/files/to_postgres.py
+music_recommender_api/files/recommend_new.py
+__pycache__
