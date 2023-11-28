@@ -42,5 +42,3 @@ class UserClicks(models.Model):
     artist = models.ForeignKey(Artists, to_field="id", on_delete=models.CASCADE, related_name="plays")
     weight = models.IntegerField()
     
-    class Meta:
-        unique_together = ("user","artist")

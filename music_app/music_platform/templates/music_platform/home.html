@@ -8,6 +8,7 @@
     <title>Home</title>
     {% load static %}
     <link rel="stylesheet" href="{% static "music_platform/bootstrap.min.css" %}">
+    <script defer src="{% static "music_platform/script.js" %}"></script>
 </head>
 <style>
     body {
@@ -57,9 +58,12 @@
             <td>{{dat.music_name}}</td>
             <td>{{dat.artist_name}}</td>
             <td><img src="{{dat.image}}" alt="" style="width:auto;height:50px;"></td>
-            <td style="display: flex; justify-content: center; align-items: center;"><audio controls
-              src="{{dat.url}}" id="{{dat.artist_id}}">
-          </audio></td>
+            <td style="display: flex; justify-content: center; align-items: center;">
+              <div onclick="handle_user_click({{dat.artist_id}},{{user.id}},'{{dat.id}}')" style="position:absolute; z-index:9999; width:300px; height:30px;"></div>  
+              <audio controls
+                src="{{dat.url}}" id="{{dat.id}}">
+                </audio>
+            </td>  
         </tr>
       {% endfor %}
       </table>

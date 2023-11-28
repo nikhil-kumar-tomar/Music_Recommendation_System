@@ -28,6 +28,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*'] # Requires IP address of production server as an addition as well
 CORS_ALLOWED_ORIGINS=["http://*"]
+CSRF_TRUSTED_ORIGINS = ['http://*']
+
 
 # Application definition
 
@@ -39,10 +41,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'music_platform',
+    'api',
     # Third party below
     'django_browser_reload',
     'widget_tweaks',
     'corsheaders',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

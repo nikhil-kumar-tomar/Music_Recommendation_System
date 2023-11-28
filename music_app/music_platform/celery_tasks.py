@@ -69,6 +69,7 @@ def music_cacher(ml_data: dict = {}, user_id: int = None, NUMBER_OF_SONGS_PER_AR
             for track in search_response["tracks"]["items"]:
                 tracks_data.append(
                     {
+                        "id":track["id"],
                         "music_name":track["name"],
                         "url":track["preview_url"],
                         "artist_name":obj["name"],
