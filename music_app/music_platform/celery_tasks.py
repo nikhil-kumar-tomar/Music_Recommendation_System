@@ -46,6 +46,7 @@ def music_cacher(ml_data: dict = {}, user_id: int = None, NUMBER_OF_SONGS_PER_AR
     if not random_request:
         data = session.post(url=f"{settings.ML_SERVICE}/get_recommends/", json=ml_data).json()
     else:
+        # Below are random recommendations only for new users
         data = [random.randint(random_data["lower_limit"], random_data["upper_limit"]) for _ in range(random_data["N"])]
     # Fetched access and recommendations ready now as well token trying to work with values
     data = Artists.objects.filter(id__in = data).values("name","id")
