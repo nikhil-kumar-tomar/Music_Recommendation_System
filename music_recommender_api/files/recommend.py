@@ -42,8 +42,8 @@ class Recommender:
     def __init__(self, als_model):
         self.als_model = als_model
 
-    def similar_items(self, artist_id: int, n: int, filter_items: list[int]):
-        artist_ids, scores = self.als_model.similar_items(artist_id, N=n, filter_items=filter_items)
+    def similar_items(self, artist_id: int, n: int):
+        artist_ids, scores = self.als_model.similar_items(artist_id, N=n)
         return artist_ids, scores
 
 
@@ -67,13 +67,13 @@ def recommend_songs(data: list[dict], N: int):
         raise {"detail":"Most weighted 3 entries are allowed only"}
 
     count_weights = count_weight_material(count, N)
-    filter_out_items = [x["artist_id"] for x in data]
+    # filter_out_items = [x["artist_id"] for x in data]
     total_artists_info = []
 
     for itr in range(len(count_weights)):
         artists_info, scores = recommend_obj.similar_items(data[itr]["artist_id"],
                                                            n=count_weights[itr],
-                                                           filter_items=filter_out_items
+                                                        #    filter_items=filter_out_items
                                                            )
         total_artists_info.extend(artists_info)
 
