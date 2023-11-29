@@ -11,17 +11,8 @@ function call_api(artist_id, user_id) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
-            
         },
         body: JSON.stringify(requestData)
-    })
-    .then(response => response.json())
-    .then(data => {
-        
-        console.log(data);
-
-        
-        document.getElementById('result').innerHTML = JSON.stringify(data);
     })
     .catch(error => {
         

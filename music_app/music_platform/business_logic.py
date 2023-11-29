@@ -1,10 +1,9 @@
 from .models import *
-from .miscellaneous import object_filter_orderby,object_filter, get_user_choices, get_image
-import requests
+from .miscellaneous import object_filter_orderby, get_user_choices, set_user_plays
 from django.conf import settings
 from .celery_tasks import music_cacher
 import json 
-import time
+from api.models import PreviousMLUse
 def allowed_music_view(request:any)->list:
     """
     this function returns a list of objects where objects are music objects which the current user has access to  a specific user has access to, this takes the parameter request used in your views,
@@ -24,8 +23,8 @@ def allowed_music_view(request:any)->list:
 
 def get_music_data(user: object):
     user_liked_songs = get_user_choices(user.id)
-    NUMBER_OF_ARTISTS = 1 # Number of Artists you want from ML
-    NUMBER_OF_SONGS_PER_ARTIST = 2 # Number of songs per recommended artist you want from spotify
+    NUMBER_OF_ARTISTS = int(settings.NUMBER_OF_ARTISTS) # Number of Artists you want from ML
+    NUMBER_OF_SONGS_PER_ARTIST = int(settings.NUMBER_OF_SONGS_PER_ARTIST) # Number of songs per recommended artist you want from spotify
 
     if not settings.REDIS_CONNECTION.exists(f"{settings.CACHE_PREFIX_USER}_{user.id}") and not user_liked_songs:
         random_data = {
@@ -35,7 +34,7 @@ def get_music_data(user: object):
         }
         result = music_cacher.delay(user_id = user.id, NUMBER_OF_SONGS_PER_ARTIST=NUMBER_OF_SONGS_PER_ARTIST, random_request=True, random_data=random_data)
         try:
-            result.get(timeout=30)
+            result.get(timeout=60)
         except Exception as e:
             print("Timeout exceeded")
             return []
@@ -49,9 +48,10 @@ def get_music_data(user: object):
 
         result = music_cacher.delay(ml_data=ml_data, user_id=user.id, NUMBER_OF_SONGS_PER_ARTIST=NUMBER_OF_SONGS_PER_ARTIST)
         try:
-            result.get(timeout=30)
+            result.get(timeout=60)
+            inst = set_user_plays(user_liked_songs = user_liked_songs, user_id=user.id)
         except Exception as e:
-            print("Timeout exceeded")
+            print(e)
             return []
 
 
