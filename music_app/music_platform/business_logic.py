@@ -35,6 +35,7 @@ def get_music_data(user: object):
         result = music_cacher.delay(user_id = user.id, NUMBER_OF_SONGS_PER_ARTIST=NUMBER_OF_SONGS_PER_ARTIST, random_request=True, random_data=random_data)
         try:
             result.get(timeout=60)
+            inst = set_user_plays(user_liked_songs = [], user_id=user.id)
         except Exception as e:
             print("Timeout exceeded")
             return []

@@ -33,7 +33,7 @@ class UserClickCounter(APIView):
         
         total_plays = sum(map(lambda x: x["weight"] ,user_liked_songs))
 
-        if (previous_play_obj and total_plays >= 5 + previous_play_obj.total_plays) or previous_play_obj is None:
+        if previous_play_obj and total_plays >= 5 + previous_play_obj.total_plays:
             
             ml_data = {
                 "data":user_liked_songs,
