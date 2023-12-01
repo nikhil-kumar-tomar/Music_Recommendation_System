@@ -1,12 +1,13 @@
 from django.shortcuts import HttpResponseRedirect,render
 from .forms import * 
 from django.conf import settings
-from .miscellaneous import object_exists
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
 from .business_logic import get_music_data
+from django.contrib.auth import get_user_model
 # Create your views here.
 
+User = get_user_model()
 def home(request):
     context={}
     if request.user.is_authenticated:
@@ -23,7 +24,7 @@ def registration(request):
     form=user_create()
     if request.method=="POST":
         form=user_create(request.POST)
-        if object_exists(factor={'email':request.POST["email"]},model="User") or object_exists(factor={'username':request.POST["username"]},model="User"):
+        if User.objects.filter(email=request.POST["email"]).exists() or User.objects.filter(username=request.POST["username"]).exists():
             messages.error(request,"Email or Username Already Exists, Please use a different email")
             return HttpResponseRedirect("/registration/")
         if form.is_valid():

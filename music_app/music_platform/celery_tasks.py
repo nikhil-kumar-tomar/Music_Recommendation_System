@@ -16,7 +16,7 @@ def music_cacher(ml_data: dict = {}, user_id: int = None, NUMBER_OF_SONGS_PER_AR
     if random_request and not random_data:
         return None
 
-    # Trying to fetch access token
+    
     session = requests.Session()
 
     client_id = settings.SPOTIFY_ID
@@ -42,13 +42,13 @@ def music_cacher(ml_data: dict = {}, user_id: int = None, NUMBER_OF_SONGS_PER_AR
     else:
         return None
 
-    # Trying to generate recommendations after getting the access token
+    
     if not random_request:
         data = session.post(url=f"{settings.ML_SERVICE}/get_recommends/", json=ml_data).json()
     else:
-        # Below are random recommendations only for new users
+
         data = [random.randint(random_data["lower_limit"], random_data["upper_limit"]) for _ in range(random_data["N"])]
-    # Fetched access and recommendations ready now as well token trying to work with values
+
     data = Artists.objects.filter(id__in = data).values("name","id")
     tracks_data = []
     for obj in data:
@@ -57,7 +57,7 @@ def music_cacher(ml_data: dict = {}, user_id: int = None, NUMBER_OF_SONGS_PER_AR
             'q': obj['name'].replace(' ','+'),
             'type': 'track',
             'market': 'IN',
-            'limit': NUMBER_OF_SONGS_PER_ARTIST, # This is changed for number of audio per artist
+            'limit': NUMBER_OF_SONGS_PER_ARTIST,
             "include_external": "audio"
         }
         headers = {

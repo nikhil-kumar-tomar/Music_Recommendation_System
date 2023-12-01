@@ -25,6 +25,25 @@ def load_user_artists(user_artists_data, file_type):
 
     return matrix.tocsr()
 
-def combined_df(df1: pd, df2: pd) -> pd:
-    result = pd.concat([df1, df2], ignore_index=True)
-    return result
+def count_weight_material(N: int, data: list) -> list[int]:
+    int_weights = []
+    data = sorted(data, key= lambda x: x["weight"], reverse=True)
+    total_plays = sum(map(lambda x: x["weight"], data))
+    weight = 1
+    itr = 0
+    while weight > 0 and itr < len(data):
+        current_weight = round(data[itr]["weight"] / total_plays, 3)
+        if weight < current_weight:
+            current_weight = weight
+        
+        weight -= round(current_weight, 3)
+
+        int_weights.append(current_weight)
+        itr += 1
+
+    int_weights = [int(N * weight) for weight in int_weights if int(N * weight) != 0]
+    
+    if sum(int_weights) < N and len(int_weights) != 0:
+        int_weights[0] = int_weights[0] + (N - sum(int_weights))
+
+    return int_weights, data

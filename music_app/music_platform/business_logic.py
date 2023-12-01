@@ -7,8 +7,8 @@ import json
 
 def get_music_data(user: object):
     user_liked_songs = get_user_choices(user.id)
-    NUMBER_OF_ARTISTS = int(settings.NUMBER_OF_ARTISTS) # Number of Artists you want from ML
-    NUMBER_OF_SONGS_PER_ARTIST = int(settings.NUMBER_OF_SONGS_PER_ARTIST) # Number of songs per recommended artist you want from spotify
+    NUMBER_OF_ARTISTS = int(settings.NUMBER_OF_ARTISTS)
+    NUMBER_OF_SONGS_PER_ARTIST = int(settings.NUMBER_OF_SONGS_PER_ARTIST) 
 
     if not settings.REDIS_CONNECTION.exists(f"{settings.CACHE_PREFIX_USER}_{user.id}") and not user_liked_songs:
         random_data = {
