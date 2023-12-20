@@ -5,9 +5,10 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
 from .business_logic import get_music_data
 from django.contrib.auth import get_user_model
-# Create your views here.
+import json
 
 User = get_user_model()
+
 def home(request):
     context={}
     if request.user.is_authenticated:
@@ -18,8 +19,10 @@ def home(request):
             "content":settings.MEDIA_URL,
         }
     return render(request,"music_platform/home.html",context)
+
 def root(request):
     return HttpResponseRedirect("/home/")
+
 def registration(request):
     form=user_create()
     if request.method=="POST":
@@ -31,10 +34,16 @@ def registration(request):
             form.save()
             messages.success(request,"Signed-Up Succesfully")
             return HttpResponseRedirect("/login/")
+        else:
+            data = json.loads(form.errors.as_json())
+            for attribute in ["password1", "password2", "email", "first_name", "last_name", "username"]:
+                if attribute in data:
+                    messages.error(request, f"{attribute}: {data[attribute][0]['message']}")
     context={
         'form':form,
     }
     return render(request,"music_platform/registration.html",context)
+
 def logins(request):
     form=user_sign()
     if request.method=="POST":
@@ -50,6 +59,7 @@ def logins(request):
         "form":form,
         }
     return render(request,"music_platform/login.html",context)
+
 def logouts(request):
     if request.user.is_authenticated:
         logout(request)
