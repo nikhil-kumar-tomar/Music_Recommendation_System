@@ -105,9 +105,8 @@ The entries are not directly sent to ML Model, Weights for each artist has to be
 the NUMBER_OF_ARTISTS is defined in .env file and it represents the total recommendations of artists to be returned from the ML model.**
 
 #### Formula for Weights
-\[
-\text{Weight} = \left( \frac{\text{plays}}{\text{total\_plays}} \right)
-\]
+
+![ScreenShot](/images/1.png)
 
 \[
 \text{total\_plays} = \sum_{i \in \text{artist\_ids}} \text{artist\_plays}_i
