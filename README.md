@@ -108,9 +108,8 @@ the NUMBER_OF_ARTISTS is defined in .env file and it represents the total recomm
 
 ![ScreenShot](/images/1.png)
 
-\[
-\text{total\_plays} = \sum_{i \in \text{artist\_ids}} \text{artist\_plays}_i
-\]
+![ScreenShot](/images/2.png)
+
 
 #### Example
 *Weight for artist 9*
@@ -155,7 +154,6 @@ Finally all of this information is given to the Alternating Least Squares model 
 
 All of the above ids are placed into a global array which is finally returned by the API.
 
-
-
-
+### Final Product
+![ScreenShot](/images/final.jpg)
 
