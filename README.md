@@ -1,6 +1,27 @@
 # Music Recommendation System
 This repository contains the source code for a Music Recommendation System, designed to provide personalized artist recommendations based on user listening patterns. The system integrates with the Spotify API, utilizes a Celery-based asynchronous task processing system, incorporates a Alternating Least Squares ML model for recommendation calculations, and employs Redis caching for improved performance.
 
+### Table of Contents
+- [Music Recommendation System](#music-recommendation-system)
+  - [Technologies Used](#technologies-used)
+  - [Architecture](#architecture)
+    - [User Initialization](#user-initialization)
+    - [User Interaction Tracking](#user-interaction-tracking)
+    - [Celery Workers Processing](#celery-workers-processing)
+    - [ML Service Integration](#ml-service-integration)
+    - [Fetching Artist Information](#fetching-artist-information)
+    - [Spotify API Integration](#spotify-api-integration)
+    - [Caching in Redis](#caching-in-redis)
+  - [System Design](#system-design)
+  - [Database Design](#database-design)
+  - [Machine Learning Model in the Music Recommendation System](#machine-learning-model-in-the-music-recommendation-system)
+    - [Training Data](#training-data)
+    - [Weight Calculation](#weight-calculation)
+      - [Formula for Weights](#formula-for-weights)
+      - [Example](#example)
+    - [ML Working](#ml-working)
+
+
 ## Technologies Used
 - Django
 - Celery
