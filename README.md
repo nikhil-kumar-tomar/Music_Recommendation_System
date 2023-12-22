@@ -54,7 +54,7 @@ The machine learning model employed in the Music Recommendation System is design
 The dataset used for training is [lastfm dataset](http://millionsongdataset.com/lastfm/) 
 The model is trained on data structured as a matrix like below:
 
-```json
+```
 |            | Artist_1 | Artist_2 | Artist_3 |
 |------------|----------|----------|----------|
 | User_1     | 2        | 5        | 8        |
@@ -64,7 +64,7 @@ The model is trained on data structured as a matrix like below:
 
 The data input to recommendations looks like below and is sent by the celery workers directly for a specific user.
 
-```json
+```
 [
     {
         "artist_id": 9,
