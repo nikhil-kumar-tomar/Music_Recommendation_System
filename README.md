@@ -102,7 +102,7 @@ The data input to recommendations looks like below and is sent by the celery wor
 ### Weight Calculation
 The entries are not directly sent to ML Model, Weights for each artist has to be found.
 **Weight here refers to the percentage of NUMBER_OF_ARTISTS that a particular artist will fill** 
-the NUMBER_OF_ARTISTS is defined in .env file and it represents the total recommendations of artists to be returned from the ML model.**
+the NUMBER_OF_ARTISTS is defined in .env file and it represents the total recommendations of artists to be returned from the ML model.
 
 #### Formula for Weights
 
